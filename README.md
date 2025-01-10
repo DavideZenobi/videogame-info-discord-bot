@@ -1,1 +1,1 @@
-# rpg-discord-bot
+# videogame-info-discord-bot
