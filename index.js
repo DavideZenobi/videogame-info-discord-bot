@@ -13,6 +13,7 @@ const commandFolders = fs.readdirSync(foldersPath);
 
 for (const folder of commandFolders) {
 	const commandsPath = path.join(foldersPath, folder);
+	console.log(commandsPath);
 	const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 	
 	for (const file of commandFiles) {
@@ -54,4 +55,4 @@ client.once(Events.ClientReady, readyClient => {
 	console.log(`Ready! Logged in as ${readyClient.user.tag}`);
 });
 
-client.login(process.env.TOKEN);
+client.login(process.env.APPLICATION_TOKEN);
