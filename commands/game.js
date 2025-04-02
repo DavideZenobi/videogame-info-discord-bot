@@ -12,10 +12,21 @@ export const data = new SlashCommandBuilder()
     );
 export async function autocomplete(interaction) {
     const focusedValue = interaction.options.getFocused();
+    if (focusedValue.length < 3) {
+        return interaction.respond([]);
+    }
+
     const games = await getGamesByString(focusedValue);
-    console.log(games);
     await interaction.respond(
-        games.map(game => ({ name: game.name, value: game.id.toString() }))
+        games.map(game => { 
+            const year = game.released?.split("-")[0] || "N/A";
+            const developers = game.developers?.map(dev => dev.name).join(", ") || "Desconocido";
+            
+            return {
+                name: `${game.name} (${year}) - ${developers}`,
+                value: game.id.toString()
+            }; 
+        })
     );
 }
 export async function execute(interaction) {
