@@ -1,6 +1,6 @@
 import "dotenv/config";
 
-const API_URL = 'https://api.rawg.io/api/games?';
+const API_GAMES_URL = 'https://api.rawg.io/api/games?';
 const RAWG_API_TOKEN = process.env.RAWG_API_TOKEN;
 
 export async function getGamesByString(input) {
@@ -12,7 +12,7 @@ export async function getGamesByString(input) {
     });
 
     try {
-        const response = await fetch(API_URL + params);
+        const response = await fetch(API_GAMES_URL + params);
         const data = await response.json();
         console.log(data.results);
         return data.results;
@@ -21,20 +21,16 @@ export async function getGamesByString(input) {
     }
 }
 
+export async function getGame(gameName) {
+    const params = new URLSearchParams({
+        key: RAWG_API_TOKEN,
+        
+    });
 
-function queryGame(gameName) {
-    return fetch(API_URL + `${gameName}` + `?key=${RAWG_API_TOKEN}`)
-        .then(response => response.json())
-        .then(data => data.results)
-        .catch(error => console.error(error));
-}
-
-async function query() {
     try {
-        const response = await fetch(API_URL + `2` + `?key=${RAWG_API_TOKEN}`);
+        const response = await fetch(API_GAMES_URL + params);
         const data = await response.json();
-        console.log(data);
-        return data;
+        return data.results;
     } catch (error) {
         return console.error(error);
     }
