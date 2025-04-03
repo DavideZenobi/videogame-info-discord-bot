@@ -1,5 +1,6 @@
 import { SlashCommandBuilder } from 'discord.js';
-import { getGamesByString } from '../rawg-api.js';
+import { getGame, getGamesByString } from '../rawg-api.js';
+import { createEmbedForGame } from '../embedFactory.js';
 
 
 export const data = new SlashCommandBuilder()
@@ -20,15 +21,22 @@ export async function autocomplete(interaction) {
     await interaction.respond(
         games.map(game => { 
             const year = game.released?.split("-")[0] || "N/A";
-            const developers = game.developers?.map(dev => dev.name).join(", ") || "Desconocido";
+            // Existe el campo developers pero está vacío en la mayoría de juegos
+            //const developers = game.developers?.map(dev => dev.name).join(", ") || "Desconocido";
             
             return {
-                name: `${game.name} (${year}) - ${developers}`,
+                name: `${game.name} (${year})`,
                 value: game.id.toString()
             }; 
         })
     );
 }
 export async function execute(interaction) {
-    await interaction.reply("That game is awesome!");
+    const gameName = interaction.options.getString("game-name");
+
+    const game = await getGame(gameName);
+    console.log(game);
+    const embed = createEmbedForGame();
+
+    await interaction.reply({ embeds: [embed] });
 }
