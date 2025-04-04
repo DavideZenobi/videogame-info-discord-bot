@@ -19,13 +19,9 @@ export async function autocomplete(interaction) {
 
     const games = await getGamesByString(focusedValue);
     await interaction.respond(
-        games.map(game => { 
-            const year = game.released?.split("-")[0] || "N/A";
-            // Existe el campo developers pero está vacío en la mayoría de juegos
-            //const developers = game.developers?.map(dev => dev.name).join(", ") || "Desconocido";
-            
+        games.map(game => {     
             return {
-                name: `${game.name} (${year})`,
+                name: game.name,
                 value: game.id.toString()
             }; 
         })
@@ -35,8 +31,7 @@ export async function execute(interaction) {
     const gameName = interaction.options.getString("game-name");
 
     const game = await getGame(gameName);
-    console.log(game);
-    const embed = createEmbedForGame();
+    const embed = createEmbedForGame(game);
 
     await interaction.reply({ embeds: [embed] });
 }

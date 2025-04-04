@@ -27,9 +27,9 @@ export async function getGame(gameName) {
     });
 
     try {
-        const response = await fetch(API_GAME_INFO_URL + gameName + params);
+        const response = await fetch(API_GAME_INFO_URL + gameName + "?" + params);
         const data = await response.json();
-        return data.results;
+        return data;
     } catch (error) {
         return console.error(error);
     }
