@@ -30,7 +30,7 @@ export async function autocomplete(interaction) {
 }
 export async function execute(interaction) {
     const gameName = interaction.options.getString("game-name");
-
+    console.log(gameName);
     const game = await getGame(gameName);
     const embed = createEmbedForGame(game);
 
