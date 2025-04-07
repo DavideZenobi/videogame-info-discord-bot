@@ -3,7 +3,6 @@ import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { Client, Events, GatewayIntentBits, Collection, MessageFlags } from 'discord.js';
 import "dotenv/config";
-// process.env.TOKEN
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = join(__filename, "..");
@@ -66,4 +65,4 @@ client.once(Events.ClientReady, readyClient => {
 	console.log(`Ready! Logged in as ${readyClient.user.tag}`);
 });
 
-client.login(process.env.APPLICATION_TOKEN);
+client.login(process.env.DISCORD_APPLICATION_TOKEN);

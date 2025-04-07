@@ -19,7 +19,7 @@ export function createEmbedForGame(data) {
         release_date: data.released,
         developers: developersString,
     }
-
+    console.log(data);
     const newEmbed = new EmbedBuilder()
         .setColor("Green")
         .setTitle(params.name)
@@ -28,7 +28,7 @@ export function createEmbedForGame(data) {
         .setThumbnail(params.thumbnail)
         .setTimestamp()
         .addFields(
-            { name: "Release date", value: params.release_date },
+            { name: "Release date", value: `:calendar_spiral: ${params.release_date}` },
             { name: "Developer", value: params.developers},
         )
     return newEmbed;
