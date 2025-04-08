@@ -5,7 +5,7 @@ const CLIENT_ID = process.env.TWITCH_CLIENT_ID;
 const API_TOKEN = process.env.IGDB_ACCESS_API_TOKEN;
 
 // Query para sacar información de un juego en concreto
-export async function getGame() {
+export async function getGame(gameName) {
     try {
         const response = await fetch(IGDB_BASE_API_URL, {
             method: "POST",
@@ -17,17 +17,18 @@ export async function getGame() {
             body: `
                 fields game_type, genres, name;
                 limit 1;
-                where id=984;
+                where id = ${gameName};
             `
         });
         const data = await response.json();
         console.log(data);
+        return data;
     } catch (error) {
         return console.error(error);
     }
 }
 
-export async function getGamesForAutocomplete() {
+export async function getGamesForAutocomplete(input) {
     try {
         const response = await fetch(IGDB_BASE_API_URL, {
             method: "POST",
@@ -38,9 +39,12 @@ export async function getGamesForAutocomplete() {
             },
             body: `
                 fields name;
-                search 
+                where name ~ *"${input}"*;
+                limit 25;
             `
         });
+        const data = await response.json();
+        return data;
     } catch (error) {
         return console.error(error);
     }

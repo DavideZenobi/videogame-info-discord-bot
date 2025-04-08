@@ -1,15 +1,6 @@
 import { EmbedBuilder } from "discord.js";
 
 export function createEmbedForGame(data) {
-    let newDescription = data.description.replaceAll("<p>", "");
-    newDescription = newDescription.replaceAll("</p>", "");
-
-    let developers = [];
-    data.developers.forEach(developer => {
-        developers.push(developer.name);
-    });
-
-    const developersString = developers.join(", ");
 
     const params = {
         name: data.name,
@@ -19,7 +10,7 @@ export function createEmbedForGame(data) {
         release_date: data.released,
         developers: developersString,
     }
-    console.log(data);
+    
     const newEmbed = new EmbedBuilder()
         .setColor("Green")
         .setTitle(params.name)

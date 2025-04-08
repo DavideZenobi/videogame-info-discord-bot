@@ -1,6 +1,5 @@
 import { SlashCommandBuilder } from 'discord.js';
-//import { getGame, getGamesByString } from '../rawg-api.js';
-import { getGame } from '../igdb-api.js';
+import { getGame, getGamesForAutocomplete } from '../igdb-api.js';
 import { createEmbedForGame } from '../embedFactory.js';
 
 
@@ -13,12 +12,12 @@ export const data = new SlashCommandBuilder()
         .setAutocomplete(true)
     );
 export async function autocomplete(interaction) {
-    /*const focusedValue = interaction.options.getFocused();
-    if (focusedValue.length < 3) {
+    const input = interaction.options.getFocused();
+    if (input.length < 3) {
         return interaction.respond([]);
     }
 
-    const games = await getGamesByString(focusedValue);
+    const games = await getGamesForAutocomplete(input);
     await interaction.respond(
         games.map(game => {     
             return {
@@ -26,11 +25,10 @@ export async function autocomplete(interaction) {
                 value: game.id.toString()
             }; 
         })
-    );*/
+    );
 }
 export async function execute(interaction) {
     const gameName = interaction.options.getString("game-name");
-    console.log(gameName);
     const game = await getGame(gameName);
     const embed = createEmbedForGame(game);
 
