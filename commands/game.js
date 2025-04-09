@@ -1,6 +1,7 @@
 import { SlashCommandBuilder } from 'discord.js';
-import { getGame, getGamesForAutocomplete } from '../igdb-api.js';
+import { getGame, getGameById, getGameByName, getGamesForAutocomplete } from '../igdb-api.js';
 import { createEmbedForGame } from '../embedFactory.js';
+import { isID } from '../util/util.js';
 
 
 export const data = new SlashCommandBuilder()
@@ -28,8 +29,14 @@ export async function autocomplete(interaction) {
     );
 }
 export async function execute(interaction) {
-    const gameName = interaction.options.getString("game-name");
-    const game = await getGame(gameName);
+    const input = interaction.options.getString("game-name");
+    let game;
+    if (isID(input)) {
+        game = await getGameById(input);
+    } else {
+        game = await getGameByName(input);
+    }
+
     const embed = createEmbedForGame(game);
 
     await interaction.reply({ embeds: [embed] });
