@@ -1,17 +1,8 @@
 import { EmbedBuilder } from "discord.js";
 
 export function createEmbedForGame(data) {
-
-    const params = {
-        name: data.name,
-        description: newDescription,
-        image: data.background_image,
-        thumbnail: data.background_image,
-        release_date: data.released,
-        developers: developersString,
-    }
     
-    const newEmbed = new EmbedBuilder()
+    /*const newEmbed = new EmbedBuilder()
         .setColor("Green")
         .setTitle(params.name)
         .setDescription(params.description)
@@ -21,8 +12,15 @@ export function createEmbedForGame(data) {
         .addFields(
             { name: "Release date", value: `:calendar_spiral: ${params.release_date}` },
             { name: "Developer", value: params.developers},
-        )
-    return newEmbed;
+        )*/
+    
+    const embed = new EmbedBuilder()
+        .setColor("Green")
+        .setTitle(data.name)
+        .setDescription(data.summary)
+        .setTimestamp()
+        
+    return embed;
 }
 
 export function createEmbedForDeveloper() {

@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from 'discord.js';
-import { getGame, getGameById, getGameByName, getGamesForAutocomplete } from '../igdb-api.js';
+import { getGameById, getGameByName, getGamesForAutocomplete } from '../igdb-api.js';
 import { createEmbedForGame } from '../embedFactory.js';
 import { isID } from '../util/util.js';
 

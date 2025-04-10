@@ -15,14 +15,14 @@ export async function getGameById(id) {
                 "Authorization": `Bearer ${API_TOKEN}`
             },
             body: `
-                fields game_type, genres, name;
+                fields game_type, genres, name, summary;
                 limit 1;
                 where id = ${id};
             `
         });
         const data = await response.json();
         console.log(data);
-        return data;
+        return data[0];
     } catch (error) {
         return console.error(error);
     }
@@ -38,14 +38,14 @@ export async function getGameByName(gameName) {
                 "Authorization": `Bearer ${API_TOKEN}`
             },
             body: `
-                fields game_type, genres, name;
+                fields game_type, genres, name, summary;
                 limit 1;
                 where name = "${gameName}";
             `
         });
         const data = await response.json();
         console.log(data);
-        return data;
+        return data[0];
     } catch (error) {
         return console.error(error);
     }
