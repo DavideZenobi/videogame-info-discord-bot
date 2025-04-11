@@ -1,5 +1,5 @@
 
 
-export function isID(input) {
+export function isId(input) {
     return /^\d+$/.test(input);
 }

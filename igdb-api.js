@@ -15,7 +15,7 @@ export async function getGameById(id) {
                 "Authorization": `Bearer ${API_TOKEN}`
             },
             body: `
-                fields game_type, genres, name, summary;
+                fields game_type, genres, name, summary, slug;
                 limit 1;
                 where id = ${id};
             `
@@ -38,7 +38,7 @@ export async function getGameByName(gameName) {
                 "Authorization": `Bearer ${API_TOKEN}`
             },
             body: `
-                fields game_type, genres, name, summary;
+                fields game_type, genres, name, summary, slug;
                 limit 1;
                 where name = "${gameName}";
             `

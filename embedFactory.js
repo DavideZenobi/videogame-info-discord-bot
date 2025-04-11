@@ -14,10 +14,16 @@ export function createEmbedForGame(data) {
             { name: "Developer", value: params.developers},
         )*/
     
+    const igdbLink = `https://www.igdb.com/games/${data.slug}`;
+
     const embed = new EmbedBuilder()
         .setColor("Green")
         .setTitle(data.name)
-        .setDescription(data.summary)
+        .setDescription(
+            data.summary.length > 400
+                ? `${data.summary.slice(0, 400)}...\n:link: [Read more on IGDB](${igdbLink})`
+                : data.summary
+        )
         .setTimestamp()
         
     return embed;
